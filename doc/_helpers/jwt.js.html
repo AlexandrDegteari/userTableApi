@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jwt.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "_helpers\\jwt.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>jwt.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> expressJwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-jwt'</span>);
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'config.json'</span>);
+<span class="hljs-keyword">const</span> userService = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../users/user.service'</span>);
+
+<span class="hljs-built_in">module</span>.exports = jwt;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jwt</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> secret = config.secret;
+    <span class="hljs-keyword">return</span> expressJwt({ secret, isRevoked }).unless({
+        <span class="hljs-attr">path</span>: [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>public routes that don't require authentication</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-string">'/users/authenticate'</span>,
+            <span class="hljs-string">'/users/register'</span>,
+            <span class="hljs-string">'/users'</span>,
+            <span class="hljs-string">'/countries'</span>,
+            <span class="hljs-string">'/auctions'</span>,
+            <span class="hljs-string">'/transactions'</span>
+        ]
+    });
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isRevoked</span>(<span class="hljs-params">req, payload, done</span>) </span>{
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> userService.getById(payload.sub);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>revoke token if user no longer exists</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!user) {
+        <span class="hljs-keyword">return</span> done(<span class="hljs-literal">null</span>, <span class="hljs-literal">true</span>);
+    }
+
+    done();
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

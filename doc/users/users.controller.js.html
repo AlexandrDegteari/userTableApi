@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>restaurants.controller.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "users\\users.controller.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+
+      <tr>
+        <td class="docs">
+          <h1>restaurants.controller.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+
+
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">﻿<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> router = express.Router();
+<span class="hljs-keyword">const</span> userService = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./user.service'</span>);
+
+</pre>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>routes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">router.post(<span class="hljs-string">'/authenticate'</span>, authenticate);
+router.post(<span class="hljs-string">'/register'</span>, register);
+router.get(<span class="hljs-string">'/'</span>, getAll);
+router.get(<span class="hljs-string">'/current'</span>, getCurrent);
+router.get(<span class="hljs-string">'/:id'</span>, getById);
+router.put(<span class="hljs-string">'/:id'</span>, update);
+router.delete(<span class="hljs-string">'/:id'</span>, _delete);
+
+<span class="hljs-built_in">module</span>.exports = router;
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">authenticate</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.authenticate(req.body)
+        .then(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> user ? res.json(user) : res.status(<span class="hljs-number">400</span>).json({ <span class="hljs-attr">message</span>: <span class="hljs-string">'Username or password is incorrect'</span> }))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params">req, res, next</span>) </span>{
+
+    userService.create(req.body)
+        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> res.json({}))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAll</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.getAll()
+        .then(<span class="hljs-function"><span class="hljs-params">users</span> =&gt;</span> res.json(users))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCurrent</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.getById(req.user.sub)
+        .then(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> user ? res.json(user) : res.sendStatus(<span class="hljs-number">404</span>))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getById</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.getById(req.params.id)
+        .then(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> user ? res.json(user) : res.sendStatus(<span class="hljs-number">404</span>))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.update(req.params.id, req.body)
+        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> res.json({}))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_delete</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    userService.delete(req.params.id)
+        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> res.json({}))
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> next(err));
+}
+
+</pre>
+        </td>
+      </tr>
+
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
