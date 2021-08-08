@@ -1,47 +1,39 @@
-﻿const config = require('config.json');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const db = require('_helpers/db');
-const nodemailer = require('nodemailer');
+﻿const db = require('_helpers/db');
+const {ObjectId} = require("mongodb");
 const User = db.User;
-require('dotenv').config();
 
 module.exports = {
-    authenticate,
-    getAll,
-    getById,
-    getByName,
+    removeProviderFromUser,
+    removeProviderFromUsers,
+    getProvidersByUserId,
     create,
+    addProviderToUser,
     update,
-    sendEmail,
     delete: _delete
 };
 
-async function authenticate({email, password}) {
-    const user = await User.findOne({email});
-    if (user && bcrypt.compareSync(password, user.hash)) {
-        const {hash, ...userWithoutHash} = user.toObject();
-        const token = jwt.sign({sub: user.id}, config.secret);
-        return {
-            ...userWithoutHash,
-            token
-        };
-    }
+
+async function addProviderToUser(userId, provider) {
+    return db.User.findByIdAndUpdate(
+        userId,
+        { $push: { providers: ObjectId(provider) } },
+        { new: true, useFindAndModify: false }
+    );
 }
 
-async function getAll() {
-    return await User.find().select('-hash')
+async function removeProviderFromUser(userId, provider) {
+    return db.User.findByIdAndUpdate(
+        userId,
+        { $pull: { providers: ObjectId(provider) } },
+        { new: true, useFindAndModify: false }
+    );
 }
-
-async function getById(id) {
-    return await User.findById(id).select('-hash');
+async function removeProviderFromUsers( provider) {
+    return db.User.find({},
+        { $pull: { providers: ObjectId(provider) } },
+        { new: true, useFindAndModify: false }
+    );
 }
-
-async function getByName(userParam) {
-    const restName = Object.keys(userParam).toString().replace("-"," ").replace("-"," ").replace("-"," ").replace("-"," ").replace("-"," ").replace("-"," ").replace("-"," ");
-    return await User.findOne({"name" : { $regex: new RegExp(`^${restName}$`), $options: 'i' }});
-}
-
 
 async function create(userParam) {
     // validate
@@ -51,10 +43,6 @@ async function create(userParam) {
 
     const user = new User(userParam);
 
-    // hash password
-    if (userParam.password) {
-        user.hash = bcrypt.hashSync(userParam.password, 10);
-    }
 
     // save user
     await user.save();
@@ -69,15 +57,14 @@ async function update(id, userParam) {
         throw 'Email ' + userParam.email + '" is already taken';
     }
 
-    // hash password if it was entered
-    if (userParam.password) {
-        userParam.hash = bcrypt.hashSync(userParam.password, 10);
-    }
 
     // copy userParam properties to user
     Object.assign(user, userParam);
 
     await user.save();
+}
+async function getProvidersByUserId(id) {
+    return await User.findById(id).select('providers');
 }
 
 async function _delete(id) {

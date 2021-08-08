@@ -5,40 +5,27 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cornflourblue/node-mongo-registration-login-api.git"
+        "url": "https://github.com/degtearialexandr/usertableapi.git"
     },
     "scripts": {
         "start": "node ./server.js",
         "start-dev": "nodemon ./server.js"
     },
     "dependencies": {
-        "qs": "^6.3.0",
-        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
-        "cloudinary": "latest",
         "cors": "^2.8.4",
-        "crypto": "^1.0.1",
-        "docker": "^1.0.0",
         "express": "^4.17.1",
-        "express-flash": "0.0.2",
-        "express-jwt": "^5.3.1",
-        "fs": "0.0.1-security",
-        "jsonwebtoken": "^8.5.1",
-        "mongodb": "^3.2.7",
-        "mongoose": "^5.7.5",
-        "multer": "latest",
-        "multer-storage-cloudinary": "latest",
-        "nodemailer": "^6.4.6",
+        "mongodb": "^4.0.1",
+        "mongoose": "^5.13.5",
         "path": "^0.12.7",
-        "req-flash": "0.0.3",
         "rootpath": "^0.1.2",
         "validator": "^13.0.0"
     },
     "devDependencies": {
         "dotenv": "^8.2.0",
         "lodash": "latest",
-        "mailchecker": "^3.3.8",
         "nodemon": "^1.19.1",
-        "passport": "^0.4.1"
+        "swagger-jsdoc": "^6.1.0",
+        "swagger-ui-express": "^4.1.6"
     }
 }
