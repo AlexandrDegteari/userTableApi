@@ -12,7 +12,7 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerOptions = {
     swaggerDefinition: {
         info: {
-            title: "Library API",
+            title: "Clients Admin Panel API",
             version: '1.0.0',
         },
     },
