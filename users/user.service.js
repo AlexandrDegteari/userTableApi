@@ -3,31 +3,13 @@ const {ObjectId} = require("mongodb");
 const User = db.User;
 
 module.exports = {
-    removeProviderFromUser,
     removeProviderFromUsers,
     getProvidersByUserId,
     create,
-    addProviderToUser,
     update,
     delete: _delete
 };
 
-
-async function addProviderToUser(userId, provider) {
-    return db.User.findByIdAndUpdate(
-        userId,
-        { $push: { providers: ObjectId(provider) } },
-        { new: true, useFindAndModify: false }
-    );
-}
-
-async function removeProviderFromUser(userId, provider) {
-    return db.User.findByIdAndUpdate(
-        userId,
-        { $pull: { providers: ObjectId(provider) } },
-        { new: true, useFindAndModify: false }
-    );
-}
 async function removeProviderFromUsers( provider) {
     return db.User.find({},
         { $pull: { providers: ObjectId(provider) } },

@@ -99,6 +99,20 @@ app.use('/users', require('./users/users.controller'));
  *       200:
  *         description: Success
  *
+ * /users/providers/{id}:
+ *   get:
+ *     description: Get Providers by userID
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        description: Numeric ID of the user to retrieve.
+ *
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ *
  * /users/delete/{id}:
  *   delete:
  *     description: Delete user
