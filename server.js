@@ -32,8 +32,12 @@ app.use('/users', require('./users/users.controller'));
 
 /**
  * @swagger
+ * tags:
+ *  name: users
+ *  description: This is clients endpoint
  * /users:
  *   get:
+ *     tags: [users]
  *     description: Get all users
  *     responses:
  *       200:
@@ -41,6 +45,7 @@ app.use('/users', require('./users/users.controller'));
 
  * /users/add:
  *   post:
+ *     tags: [users]
  *     description: Add new user
  *     parameters:
  *      - name: username
@@ -69,6 +74,7 @@ app.use('/users', require('./users/users.controller'));
  *
  * /users/put/{id}:
  *   put:
+ *     tags: [users]
  *     description: Edit user
  *     parameters:
  *      - in: path
@@ -101,6 +107,7 @@ app.use('/users', require('./users/users.controller'));
  *
  * /users/providers/{id}:
  *   get:
+ *     tags: [users]
  *     description: Get Providers by userID
  *     parameters:
  *      - in: path
@@ -115,6 +122,7 @@ app.use('/users', require('./users/users.controller'));
  *
  * /users/delete/{id}:
  *   delete:
+ *     tags: [users]
  *     description: Delete user
  *     parameters:
  *      - in: path
@@ -133,6 +141,7 @@ app.use('/providers', require('./providers/providers.controller'));
  * @swagger
  * /providers:
  *   get:
+ *     tags: [providers]
  *     description: Get all providers
  *     responses:
  *       200:
@@ -141,6 +150,7 @@ app.use('/providers', require('./providers/providers.controller'));
  *
  * /providers/add:
  *   post:
+ *     tags: [providers]
  *     description: Add new providers
  *     parameters:
  *      - name: name
@@ -154,6 +164,7 @@ app.use('/providers', require('./providers/providers.controller'));
  *
  * /providers/put/{id}:
  *   put:
+ *     tags: [providers]
  *     description: Edit provider
  *     parameters:
  *      - in: path
@@ -171,6 +182,7 @@ app.use('/providers', require('./providers/providers.controller'));
  *
  * /providers/delete/{id}:
  *   delete:
+ *     tags: [providers]
  *     description: Delete provider
  *     parameters:
  *      - in: path

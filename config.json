@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost/client-table",
+    "connectionString": "mongodb://localhost/client-table2",
     "secret": "123456"
 }
