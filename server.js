@@ -42,6 +42,8 @@ app.use('/users', require('./users/users.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
 
  * /users/add:
  *   post:
@@ -71,6 +73,8 @@ app.use('/users', require('./users/users.controller'));
  *     responses:
  *       201:
  *         description: Created
+ *       404:
+ *         description: Bad request
  *
  * /users/put/{id}:
  *   put:
@@ -104,6 +108,10 @@ app.use('/users', require('./users/users.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
+ *       400:
+ *         description: Bad request
  *
  * /users/providers/{id}:
  *   get:
@@ -118,6 +126,8 @@ app.use('/users', require('./users/users.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
  *
  *
  * /users/delete/{id}:
@@ -133,6 +143,10 @@ app.use('/users', require('./users/users.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
+ *       400:
+ *         description: Bad request
  *
  *
  */
@@ -146,6 +160,8 @@ app.use('/providers', require('./providers/providers.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
  *
  *
  * /providers/add:
@@ -161,6 +177,8 @@ app.use('/providers', require('./providers/providers.controller'));
  *     responses:
  *       201:
  *         description: Created
+ *       400:
+ *         description: Bad request
  *
  * /providers/put/{id}:
  *   put:
@@ -179,6 +197,10 @@ app.use('/providers', require('./providers/providers.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       404:
+ *         description: Not Found
+ *       400:
+ *         description: Bad request
  *
  * /providers/delete/{id}:
  *   delete:
@@ -193,6 +215,10 @@ app.use('/providers', require('./providers/providers.controller'));
  *     responses:
  *       200:
  *         description: Success
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Not Found
  */
 // global error handler
 app.use(errorHandler);
